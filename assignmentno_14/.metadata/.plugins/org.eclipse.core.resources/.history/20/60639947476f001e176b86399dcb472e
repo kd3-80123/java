@@ -1,0 +1,9 @@
+package com.sunbeam;
+
+public interface Emp {
+	double getSal();
+	default double calcIncentives() {
+		return 0.0;
+	}
+	
+}

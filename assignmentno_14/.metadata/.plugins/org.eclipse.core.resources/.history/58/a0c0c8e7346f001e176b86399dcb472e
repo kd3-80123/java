@@ -1,0 +1,12 @@
+package assign14q5;
+
+public class Check {package com.sunbeam;
+
+public interface Check <T> {
+	
+	boolean compare(T a, T b);
+
+}
+
+
+}

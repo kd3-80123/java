@@ -1,0 +1,15 @@
+package com.sunbeam;
+
+public class Program01 {
+
+	public static void main(String[] args) {
+		Emp [] arr = new Emp [3];
+		arr [0] =  new Labor(352, 30);
+		arr [1] = new Manager(5000, 1000);
+		arr [2] = new Clerk(6000);
+		
+		double total =Emp.calcTotalIncome(arr);
+		System.out.println("The Total salary"+ total);
+		
+	}
+}

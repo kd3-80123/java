@@ -1,0 +1,16 @@
+package com.sunbeam;
+
+public class Manager implements Emp {
+private double basicSalary=10000;
+private double dearanceAllowance=2000;
+@Override
+public double getSal() {
+	
+	return basicSalary + dearanceAllowance;
+}
+public double calcIncentives() 
+{
+	return (0.20 * basicSalary);
+}
+
+}

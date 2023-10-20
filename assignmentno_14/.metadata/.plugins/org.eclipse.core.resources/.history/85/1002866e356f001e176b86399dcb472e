@@ -1,0 +1,25 @@
+package assign14q5;
+
+
+public class program05 {
+
+	static <T>  int countIf(T [] arr, T key, Check<T> c)
+	{
+		int count = 0;
+		
+		for (T t : arr) {
+			if(c.compare(t, key))
+				count++;
+		}
+		return count;
+	}
+
+	public static void main(String[] args) {
+		Integer [] arr = {44, 77, 99, 22, 55, 66};
+		Double [] arr1 = {44.2, 77.6, 99.3, 22.5, 44.7, 66.8};
+		Double key = 44.2;
+		int cnt = countIf(arr, key, (x,y)-> x.equals(y));
+		System.out.println("Count = " + cnt);
+
+	}
+}

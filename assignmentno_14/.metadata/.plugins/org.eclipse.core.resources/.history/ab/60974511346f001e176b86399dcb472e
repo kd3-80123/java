@@ -1,0 +1,21 @@
+package com.sunbeam;
+
+public class Program04 {
+	
+	static <T>  int countIf(T [] arr, T key, Check<T> c)
+	{
+		int count = 0;
+		
+		for (T t : arr) {
+			if(c.compare(t, key))
+				count++;
+		}
+		return count;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

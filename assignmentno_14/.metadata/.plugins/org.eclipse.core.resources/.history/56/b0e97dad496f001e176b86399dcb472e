@@ -1,0 +1,17 @@
+package com.sunbeam;
+
+public class Clerk implements Emp{
+	double salary=10000;
+
+	public void salary() 
+	{
+		System.out.println("The salary of employee is"+this.salary);
+	}
+	@Override
+	public double getSal() {
+		
+		return getSal();
+	}
+	
+
+}

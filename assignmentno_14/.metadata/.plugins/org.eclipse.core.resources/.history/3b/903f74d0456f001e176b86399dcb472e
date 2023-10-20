@@ -1,0 +1,19 @@
+package com.sunbeam;
+
+public class Labor implements Emp{
+	int hours;
+	int rate;
+	
+	@Override
+	public double getSal() {
+		
+		return hours* rate;
+	}
+	public double calcIncentives() 
+	{
+		if (hours > 300)
+		double incentive = 0.5 * getSal();
+		retrun incentive;
+	}
+
+}
