@@ -1,0 +1,29 @@
+package com.sunbeam;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class Program04 {
+
+	public static void main(String[] args) {
+		
+		try(FileReader fr = new FileReader("/home/saurabh/Desktop/java/assignmentno_15/assign15q3/Line.txt"))
+		{
+			try(BufferedReader br = new BufferedReader(fr))
+			{
+				String Line;
+				while((Line = br.readLine())!=null)
+				{
+					System.out.println(Line);
+				}
+				
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+
+}

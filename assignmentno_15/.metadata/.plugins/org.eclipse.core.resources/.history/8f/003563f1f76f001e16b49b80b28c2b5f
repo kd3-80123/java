@@ -1,0 +1,17 @@
+package assign15q1;
+
+import java.util.ArrayList;
+
+public class Program01 {
+	public void WriteFile()
+	{
+		ArrayList<Books> list = new ArrayList<Books>();
+		
+	}
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}

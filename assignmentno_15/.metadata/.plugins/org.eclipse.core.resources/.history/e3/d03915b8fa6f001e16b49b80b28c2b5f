@@ -1,0 +1,152 @@
+package assign15q1;
+
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Program01 {
+	public void WriteFile(int size)
+	{
+		
+		try(FileOutputStream fout = new FileOutputStream("Books.txt"))
+		{
+			try(DataOutputStream dout = new DataOutputStream(fout))
+			{
+				for(int i=0;i<size;i++)
+				{
+				Books b1 = new Books();
+				dout.writeUTF(b1.getIsbn());
+				dout.writeUTF(b1.getAuthorName());
+				dout.writeDouble(b1.getPrice());
+				dout.writeInt(b1.getQuantity());
+				}
+			}
+			System.out.println("File saved successfully");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public void ReadFile()
+	{
+		try(FileInputStream fin = new FileInputStream("Books.txt"))
+		{
+			try(DataInputStream din = new DataInputStream(fin))
+			{
+				
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	static int menu()
+	{
+		int choice;
+		System.out.println("0. Exit");
+		System.out.println("1. Add new book in list.");
+		System.out.println("2. Display all books in forward order using random access");
+		System.out.println("3. Search a book with given isbn ;");
+		System.out.println("4. Delete a book at given index ");
+		System.out.println("5. Delete a book with given isbn");
+		System.out.println("6. Reverse the list");
+		
+		System.out.println("Please enter the choice");
+		Scanner sc= new Scanner(System.in);
+		choice = sc.nextInt();
+		return choice;
+	}
+	public static void main(String[] args) {
+		
+		ArrayList<Books> list = new ArrayList<Books>();
+		int choice;
+		while((choice = menu())!=0)
+		{
+			switch(choice)
+			{
+			case 1:
+				Books B1 = new Books();
+				B1.acceptData();
+				if(list.contains(B1))
+					
+				{
+					int key = list.indexOf(B1);
+					list.get(key).setQuantity(list.get(key).getQuantity()+ B1.getQuantity());
+				}
+				else
+					list.add(B1);
+			
+				
+				break;
+				
+			case 2://Display all books in forward order.
+				for(int i=0;i<list.size();i++)
+				{
+					Books b = list.get(i);
+					System.out.println(b);
+				}
+				break;
+				
+			case 3://Search a book with given isbn
+				System.out.println("Please enter the isbn number to be found");
+				String isbn = new Scanner(System.in).next();
+				Books key = new Books();
+				key.setIsbn(isbn);
+				if(list.contains(key))
+				 {
+					int index =	list.indexOf(key);
+					System.out.println(key);
+					
+					
+				 }
+				else
+					System.out.println("The serial number is not found");
+				break;
+				
+			case 4:
+				
+				System.out.println("Please enter the isbn number to be found");
+				int index = new Scanner(System.in).nextInt();
+				list.remove(index);
+				break;
+				
+			case 5:
+				System.out.println("Please enter the isbn number to be found");
+				String isbn1 = new Scanner(System.in).next();
+				Books key1 = new Books();
+				key1.setIsbn(isbn1);
+				if(list.contains(key1))
+				 {
+					int index1 = list.indexOf(key1);
+						list.remove(index1);
+					
+								
+				 }
+				else
+					System.out.println("The serial number is not found");
+				break;
+				
+			case 6:
+				Collections.reverse(list);
+				System.out.println(list);
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+				
+			}
+		}
+	}
+}
+				
+
+}

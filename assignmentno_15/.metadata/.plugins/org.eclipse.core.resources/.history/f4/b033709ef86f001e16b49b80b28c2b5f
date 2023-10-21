@@ -1,0 +1,46 @@
+package assign15q1;
+
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+
+public class Program01 {
+	public void WriteFile(int size)
+	{
+		
+		try(FileOutputStream fout = new FileOutputStream("Books.txt"))
+		{
+			try(DataOutputStream dout = new DataOutputStream(fout))
+			{
+				for(int i=0;i<size;i++)
+				{
+				Books b1 = new Books();
+				dout.writeUTF(b1.getIsbn());
+				dout.writeUTF(b1.getAuthorName());
+				dout.writeDouble(b1.getPrice());
+				dout.writeInt(b1.getQuantity());
+				}
+			}
+			System.out.println("File saved successfully");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		ArrayList<Books> list = new ArrayList<Books>();
+		list.add(new Books("kop", 600.2,"Saurabh", 20));
+		list.add(new Books("kol", 646.6,"nishant", 10));
+		list.add(new Books("kor", 652.7,"Sandesh", 30));
+		list.add(new Books("kon", 640.3,"bharat", 50));
+		list.add(new Books("kov", 630.2,"gurnath", 60));
+		list.add(new Books("kou", 620.2,"Saiesh", 10));
+		
+		
+
+	}
+
+}
