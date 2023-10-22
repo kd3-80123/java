@@ -1,0 +1,37 @@
+package com.sunbeam;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class Program01 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		try(CandidateDao dao = new CandidateDao() )
+		{
+			List<Candidate> list = dao.findAll();
+			list.forEach(x->System.out.println(x));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+	
+	
+	try(CandidateDao dao= new CandidateDao())
+	{
+		Candidate c= new Candidate();
+		System.out.println("Please enter the name of candidate");
+		String name = sc.next();
+		System.out.println("Please enter the party of candidate");
+		String party = sc.next();
+		c.setParty(party);
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+
+}
+}

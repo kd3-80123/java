@@ -1,0 +1,100 @@
+package com.sunbeam;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.mysql.cj.x.protobuf.MysqlxCrud.Delete;
+
+public class Program01 {
+	 static int menu()
+	{
+		int choice;
+		System.out.println("Please enter your choice");
+		System.out.println("1. To Display all candidates");
+		System.out.println("2. To update name and party of");
+		System.out.println("3. increment candidate vote");
+		// 4. To add new candidate
+		// 5. get all candidates of given party
+		//6. save candidate
+		//7. get party wise votes
+		//8.Delete a candidate
+		choice = new Scanner(System.in).nextInt();
+		return choice;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int choice;
+		
+		while ((choice = menu())!=0)
+		
+		switch (choice) {
+		case 1:
+			try(CandidateDao dao = new CandidateDao() )
+			{
+				List<Candidate> list = dao.findAll();
+				list.forEach(x->System.out.println(x));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+
+			
+			break;
+		case 2:
+			try(CandidateDao dao= new CandidateDao())
+			{
+				Candidate c= new Candidate();
+				System.out.println("Please enter the id of candidate");
+				int id = sc.nextInt();
+				c.setId(id);
+				System.out.println("Please enter the name of candidate");
+				String name = sc.next();
+				c.setName(name);
+				System.out.println("Please enter the party of candidate");
+				String party = sc.next();
+				c.setParty(party);
+				int cnt = dao.update(c);
+				System.out.println("Row Modified :"+ cnt);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		case 3://increment candidate vote
+			try(CandidateDao dao = new CandidateDao())
+			{
+				Candidate c= new Candidate();
+				System.out.println("Please enter the Candidate ID to increment");
+				int id = new Scanner(System.in).nextInt();
+				c.setId(id);
+				int cnt = dao.incrementVotes(c);
+				System.out.println("Row Modified :"+ cnt);
+				
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+
+		default:
+			break;
+		}
+		
+	
+	
+	
+
+}
+}

@@ -1,0 +1,146 @@
+package com.sunbeam;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.mysql.cj.x.protobuf.MysqlxCrud.Delete;
+
+public class Program01 {
+	 static int menu()
+	{
+		int choice;
+		System.out.println("Please enter your choice");
+		System.out.println("0. Exit");
+		System.out.println("1. To Display all candidates");
+		System.out.println("2. To update name and party of");
+		System.out.println("3. increment candidate vote");
+		System.out.println("4. To add new candidate");
+		System.out.println("5. Get all candidates of given party");
+		System.out.println("6. Delete a candidate");
+		
+		choice = new Scanner(System.in).nextInt();
+		return choice;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int choice;
+		
+		while ((choice = menu())!=0)
+		
+		switch (choice) {
+		case 1:
+			try(CandidateDao dao = new CandidateDao() )
+			{
+				List<Candidate> list = dao.findAll();
+				list.forEach(x->System.out.println(x));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+
+			
+			break;
+		case 2:
+			try(CandidateDao dao= new CandidateDao())
+			{
+				Candidate c= new Candidate();
+				System.out.println("Please enter the id of candidate");
+				int id = sc.nextInt();
+				c.setId(id);
+				System.out.println("Please enter the name of candidate");
+				String name = sc.next();
+				c.setName(name);
+				System.out.println("Please enter the party of candidate");
+				String party = sc.next();
+				c.setParty(party);
+				int cnt = dao.update(c);
+				System.out.println("Row Modified :"+ cnt);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		case 3://increment candidate vote
+			try(CandidateDao dao = new CandidateDao())
+			{
+				Candidate c= new Candidate();
+				System.out.println("Please enter the Candidate ID to increment");
+				int id = new Scanner(System.in).nextInt();
+				c.setId(id);
+				int cnt = dao.incrementVotes(c);
+				System.out.println("Row Modified :"+ cnt);
+				
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			break;
+		case 4://To add new candidate
+		{
+			try(CandidateDao dao= new CandidateDao())
+			{
+					Candidate c= new Candidate();
+					System.out.println("Please enter the name of candidate");
+					String name = new Scanner(System.in).next();
+					c.setName(name);
+					System.out.println("Please enter the id of candidate");
+					int id = new Scanner(System.in).nextInt();
+					c.setId(id);
+					System.out.println("Please enter the party of candidate");
+					String party = new Scanner(System.in).next();
+					c.setParty(party);
+					System.out.println("Please enter the votes of candidate");
+					int vote = new Scanner(System.in).nextInt();
+					c.setVotes(vote);
+					int cnt =dao.save(c);
+					System.out.println("Row Added :"+ cnt);
+					
+					
+			}
+			catch(Exception e)
+			{
+				
+			}
+		}
+			
+			break;
+		case 5:// 5. get party wise votes
+			try(CandidateDao dao= new CandidateDao())
+			{	List<PartyVotes> list = dao.getPartywiseVotes();
+				
+				list.forEach(c -> System.out.println(c));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			break;
+		
+		case 6: //8.Delete a candidate
+			try(CandidateDao dao = new CandidateDao()) {
+				System.out.print("Enter candidate id to be deleted: ");
+				int id = sc.nextInt();
+				int cnt = dao.deleteByID(id);
+				System.out.println("Candidates deleted: " + cnt);
+			} // dao.close();
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+		default:
+			System.out.println("Wrong choice .......");
+			break;
+		}
+		
+	
+	
+	
+
+}
+}

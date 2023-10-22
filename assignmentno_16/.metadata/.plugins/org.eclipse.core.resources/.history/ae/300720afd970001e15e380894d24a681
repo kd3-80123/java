@@ -1,0 +1,99 @@
+package com.sunbeam;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class CandidateDao implements AutoCloseable {
+	private Connection con;
+	public CandidateDao() throws SQLException {
+		con = DbUtil.getConnection();
+	}
+	@Override
+	public void close() throws Exception {
+		try {
+			if (con != null)
+				con.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	//add new candidate
+	
+	//delete given candidate
+	public int deleteByID (int id) throws SQLException
+	{
+		String sql ="DELETE FROM candidate WHERE id = ?";
+		try(PreparedStatement stmt = con.prepareStatement(sql))
+		{
+			stmt.setInt(1, id);
+			int cnt = stmt.executeUpdate();
+			return cnt;
+		}
+		
+	}
+	//update candidate
+	public int update(Candidate c) throws SQLException
+	{
+		String sql = "UPDATE candidates  SET name=?,party=? WHERE id=?";
+		try(PreparedStatement stmt =con.prepareStatement(sql))
+		{
+			
+			stmt.setString(1,c.getName());
+			stmt.setString(2,c.getParty());
+			
+			stmt.setInt(3,c.getId());
+			int cnt =stmt.executeUpdate();
+			return cnt;
+		}
+		
+		
+	}
+	
+	//get all candidate
+	public List<Candidate> findAll() throws SQLException
+	{
+		List<Candidate> list = new ArrayList<Candidate>();
+		String sql ="SELECT * FROM candidates";
+		try(PreparedStatement stmt =con.prepareStatement(sql))
+		{
+			 try(ResultSet rs= stmt.executeQuery())
+			 {
+				 while(rs.next())
+				 {	//int id, String name, String party, int votes
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String party = rs.getString("party");
+					int vote = rs.getInt("votes");
+					Candidate c = new Candidate(id, name, party, vote);
+					list.add(c);
+				 }
+			 }
+			 
+		}return list;
+	
+	}
+	
+	public int incrementVotes(Candidate c) throws SQLException
+	{
+		String sql = "UPDATE candidates SET votes = votes +10 WHERE id = ?";
+		try(PreparedStatement stmt = con.prepareStatement(sql))
+		{
+			stmt.setInt(1,c.getId());
+			int cnt=stmt.executeUpdate();
+			return cnt;
+		}
+	}
+	int save(Candidate c);
+	List<PartyVotes> getPartywiseVotes();
+	
+	
+
+}
